@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vender tu vivienda - Eduardo Moratón</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1e3a5f;
+            --primary-light: #2c5aa0;
+            --primary-dark: #162d47;
+            --cream: #F5F1E8;
+            --dark-gray: #4A4A4A;
+            --light-gray: #D4CFC0;
+            --white: #FFFFFF;
+            --border-color: #E8E4D8;
+            --green: #2f5f3e;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--cream);
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+
+        .logo a {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--dark-gray);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .btn-contact {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .btn-contact:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(30, 58, 95, 0.3), rgba(44, 90, 160, 0.3)), 
+                        url('https://raw.githubusercontent.com/eduardoasesorinmobiliario/mi-web-inmobiliaria/main/fotodespacho.jpeg');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.2);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        /* Section Padding */
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--dark-gray);
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 50px;
+        }
+
+        /* Content Section */
+        .content-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .content-section img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        .content-text h2 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .content-text p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        /* Benefits Grid */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .benefit-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .benefit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .benefit-card h3 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 12px;
+        }
+
+        .benefit-card p {
+            color: var(--dark-gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: var(--white);
+            padding: 60px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .cta-section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-primary {
+            background-color: var(--white);
+            color: var(--primary);
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn-submit {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 15px 40px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        footer p {
+            margin-bottom: 10px;
+        }
+
+        footer a {
+            color: var(--white);
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        footer a:hover {
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .content-section {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            nav {
+                gap: 15px;
+            }
+
+            nav a {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="#inicio" style="text-decoration: none; display: flex; align-items: center;">
+                        <img src="https://raw.githubusercontent.com/eduardoasesorinmobiliario/mi-web-inmobiliaria/main/NEWLOGO2026.png" alt="Logo EM" style="height: 50px; width: auto; cursor: pointer;">
+                    </a>
+                </div>
+                <nav>
+                    <a href="#inicio">Inicio</a>
+                    <a href="#beneficios">Beneficios</a>
+                    <a href="#contacto">Contacto</a>
+                    <button class="btn-contact" onclick="document.getElementById('contacto').scrollIntoView({behavior: 'smooth'})">Contactar</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="container">
+            <div class="hero-content">
+                <h1>🏠 Vende tu vivienda con tranquilidad</h1>
+                <p>Encuentra al comprador adecuado, sin prisas ni falsas promesas</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="content-section">
+                <div class="content-text">
+                    <h2>¿Por qué es importante vender bien?</h2>
+                    <p>Vender una vivienda no es solo una operación inmobiliaria. Es una decisión importante, muchas veces emocional, y merece hacerse con calma, claridad y confianza.</p>
+                    <p>Por eso mi forma de trabajar es sencilla: escuchar primero, explicar con honestidad y actuar con estrategia. Solo entendiendo tu situación y tu vivienda puedo detectar qué la hace especial y cómo comunicarla para atraer al comprador adecuado.</p>
+                    <p><strong>El objetivo no es "poner un anuncio". El objetivo es crear un relato atractivo, poner en valor tu hogar y cerrar la venta en las mejores condiciones posibles.</strong></p>
+                </div>
+                <img src="https://raw.githubusercontent.com/eduardoasesorinmobiliario/mi-web-inmobiliaria/main/fotodespacho.jpeg" alt="Despacho profesional">
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="section-padding" style="background-color: #f9f7f3;" id="beneficios">
+        <div class="container">
+            <h2 class="section-title">¿Por qué confiarme la venta de tu vivienda?</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">🔍</div>
+                    <h3>Trato cercano y transparente</h3>
+                    <p>Hablas directamente conmigo. Escucho tu caso, te explico cada paso del proceso y tomamos decisiones de forma conjunta, sin letra pequeña.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">❌</div>
+                    <h3>Sin falsas promesas</h3>
+                    <p>No inflaré el precio para convencerte. Prefiero decirte la verdad desde el principio y trabajar con datos reales para vender bien.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🧠</div>
+                    <h3>Estrategia personalizada</h3>
+                    <p>Cada vivienda es distinta. Analizo tu inmueble, la zona y el perfil de comprador adecuado. No uso fórmulas genéricas.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🤝</div>
+                    <h3>Acompañamiento completo</h3>
+                    <p>Desde la valoración inicial hasta la notaría. Te acompaño en todo el proceso, resuelvo dudas y me encargo de los detalles.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📞</div>
+                    <h3>Contacto directo conmigo</h3>
+                    <p>Si me confías tu vivienda, hablas conmigo. Sin intermediarios, sin recepcionistas, sin filtros. Atención directa y responsable.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>📩 ¿Hablamos?</h2>
+            <p>Si estás pensando en vender tu vivienda y quieres hacerlo con claridad, realismo y un trato cercano, ponte en contacto conmigo.</p>
+            <button class="btn-primary" onclick="document.getElementById('contacto').scrollIntoView({behavior: 'smooth'})">Solicitar Consulta</button>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="section-padding" id="contacto">
+        <div class="container">
+            <h2 class="section-title">Contacta conmigo</h2>
+            <p class="section-subtitle">Completa el formulario y te contactaré en breve para analizar tu caso sin compromiso.</p>
+            <form class="contact-form" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="name">Nombre</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Teléfono</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+                <div class="form-group">
+                    <label for="message">Cuéntame tu caso</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Enviar Mensaje</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- WhatsApp Widget -->
+    <div id="wa-widget" style="
+      position:fixed;
+      bottom:20px;
+      right:20px;
+      font-family:Arial,sans-serif;
+      z-index:999;
+      overflow:visible;
+    ">
+
+      <!-- CHAT BOX -->
+      <div id="wa-box" style="
+        position:absolute;
+        bottom:70px;
+        right:0;
+        width:260px;
+        background:#fff;
+        border-radius:16px;
+        box-shadow:0 6px 20px rgba(0,0,0,.25);
+        display:none;
+        overflow:visible;
+      ">
+        <div style="
+          background:#2f5f3e;
+          color:#fff;
+          padding:12px;
+          font-weight:bold;
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+        ">
+          <span>Eduardo Moratón MGA Servicios Inmobiliarios</span>
+          <span id="wa-close" style="
+            cursor:pointer;
+            font-size:18px;
+            line-height:1;
+          ">✕</span>
+        </div>
+
+        <div style="padding:16px;background:#f5f5f5;">
+          <div style="
+            background:#fff;
+            padding:10px 14px;
+            border-radius:16px;
+            font-size:14px;
+            margin-bottom:12px;
+          ">
+            Hola 👋<br>
+            Soy Eduardo, ¿Hablamos por WhatsApp?
+          </div>
+
+          <a href="https://wa.me/34614245345?text=Hola%20Eduardo,%20te%20contacto%20desde%20tu%20web"
+             target="_blank"
+             style="
+               display:block;
+               text-align:center;
+               background:#2f5f3e;
+               color:#fff;
+               padding:12px;
+               border-radius:24px;
+               font-weight:bold;
+               text-decoration:none;
+             ">
+            Iniciar chat
+          </a>
+        </div>
+      </div>
+
+      <!-- BOTÓN -->
+      <div id="wa-btn" style="
+        width:60px;
+        height:60px;
+        border-radius:50%;
+        background:#2f5f3e;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        cursor:pointer;
+        box-shadow:0 4px 10px rgba(0,0,0,.3);
+        animation:pulse 1.8s infinite;
+      ">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+             style="width:30px;height:30px;">
+      </div>
+
+    </div>
+
+    <style>
+    @keyframes pulse {
+      0% { transform:scale(1); }
+      70% { transform:scale(1.1); }
+      100% { transform:scale(1); }
+    }
+    </style>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const waBtn = document.getElementById('wa-btn');
+      const waBox = document.getElementById('wa-box');
+      const waClose = document.getElementById('wa-close');
+
+      if (waBtn && waBox && waClose) {
+        waBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          waBox.style.display = (waBox.style.display === 'block') ? 'none' : 'block';
+        });
+
+        waClose.addEventListener('click', function (e) {
+          e.stopPropagation();
+          waBox.style.display = 'none';
+        });
+      }
+    });
+
+    function handleSubmit(event) {
+      event.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      const message = document.getElementById('message').value;
+      
+      const mailtoLink = `mailto:eduardo.asesoriainmobiliaria@gmail.com?subject=Consulta desde web - ${name}&body=Nombre: ${name}%0AEmail: ${email}%0ATeléfono: ${phone}%0A%0AMensaje:%0A${message}`;
+      window.location.href = mailtoLink;
+    }
+    </script>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p><strong>Eduardo Moratón - Consultoría Inmobiliaria</strong></p>
+            <p>📧 <a href="mailto:eduardo.asesoriainmobiliaria@gmail.com">eduardo.asesoriainmobiliaria@gmail.com</a></p>
+            <p>📱 <a href="tel:+34614245345">+34 614 245 345</a></p>
+            <p style="margin-top: 20px; font-size: 0.9rem;">© 2024-2026 Eduardo Moratón. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>
